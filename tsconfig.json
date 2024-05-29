@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@visualnote/shadcn-ui": ["libs/shadcn-ui/src/index.ts"],
+      "@visualnote/shadcn-ui/*": ["libs/shadcn-ui/src/*"]
+    },
+    "types": ["jest"]
+  }
+}
