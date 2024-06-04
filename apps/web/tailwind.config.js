@@ -16,6 +16,7 @@ module.exports = {
     container: {
       center: true,
       padding: '2rem',
+      margin: 0,
       screens: {
         '2xl': '1400px',
       },
@@ -29,6 +30,7 @@ module.exports = {
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        hover: '#3332',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',

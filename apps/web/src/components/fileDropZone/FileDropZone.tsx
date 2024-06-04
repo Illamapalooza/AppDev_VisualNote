@@ -1,7 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { GoUpload } from 'react-icons/go';
-import axios from 'axios';
 import { RxCross2 } from 'react-icons/rx';
 import CreateNotesButton from '../createNoteButton/CreateNoteButton';
 
@@ -16,12 +14,17 @@ import {
 import { Progress } from '@visualnote/shadcn-ui/components/ui/progress';
 import { Button } from '@visualnote/shadcn-ui/components/ui/button';
 
+import axios from 'axios';
+import { useState } from 'react';
+import Loader from '../loader/loader';
+
 type Props = {
   onDrop: (acceptedFiles: File[]) => void;
   files: File[] | null;
 };
 
 function FileDropZone(props: Props): JSX.Element {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       'image/png': ['.png'],
@@ -31,9 +34,45 @@ function FileDropZone(props: Props): JSX.Element {
     onDrop: (acceptedFiles) => props.onDrop(acceptedFiles),
   });
 
+  const generateNote = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!props.files) {
+      console.log('Error. Must have an existing image');
+      return;
+    }
+
+    setIsLoading(true);
+    // setHasData(false);
+
+    try {
+      const res = await axios.post('http://localhost:3000/api/generate-note', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 200) setIsLoading(false);
+
+      const response = res.data;
+
+      // const data = JSON.parse(response);
+      console.log(response);
+      //  setTopicData(data as TopicData);
+      //  setIsLoading(false);
+      //  setHasData(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <Card className="border-slate-800 rounded-md overflow-hidden w-full">
+      {isLoading && <Loader></Loader>}
+      <Card
+        className={`border-slate-800 rounded-md overflow-au w-full ${
+          isLoading && 'blur-sm'
+        }`}
+      >
         <CardHeader className="flex flex-col items-center">
           <CardTitle className="text-lg">Upload File</CardTitle>
           <CardDescription className="text-gray-500 text-sm">
@@ -114,7 +153,10 @@ function FileDropZone(props: Props): JSX.Element {
           )}
         </CardContent>
         <CardFooter>
-          <CreateNotesButton files={props.files} />
+          {/* <CreateNotesButton files={props.files} /> */}
+          <Button className="m-auto" onClick={generateNote}>
+            Generate Note
+          </Button>
         </CardFooter>
       </Card>
     </>

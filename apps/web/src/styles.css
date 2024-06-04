@@ -75,7 +75,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-[#fdfdf5] text-foreground;
+    @apply bg-secondary text-foreground;
     font-feature-settings: 'rlig' 1, 'calt' 1;
     font-family: 'Fira Code', monospace;
   }
@@ -83,12 +83,11 @@
 
 @layer components {
   .modal {
-    @apply z-40 fixed w-full h-full overflow-auto bg-black bg-opacity-10 flex flex-col justify-center items-center left-0 top-0;
+    @apply z-10 absolute w-full h-full bg-black bg-opacity-10 flex flex-col justify-center items-center;
   }
 }
 
 .loader {
-  background-color: transparent;
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px dotted black;
@@ -99,6 +98,10 @@
   height: 60px;
   -webkit-animation: spin 5s linear infinite;
   animation: spin 5s linear infinite;
+}
+
+.active {
+  @apply bg-primary text-secondary hover:bg-hover hover:text-primary rounded-lg;
 }
 @-webkit-keyframes spin {
   0% {

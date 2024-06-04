@@ -8,8 +8,7 @@ type layoutProps = {
 export default function layout(props: layoutProps): JSX.Element {
   return (
     <Fragment>
-      <Navbar />
-      <div className="container">
+      <div className="">
         <main className="z-10">
           <div>{props.children}</div>
         </main>

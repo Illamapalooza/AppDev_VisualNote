@@ -9,7 +9,7 @@ function Loader(props: Props): JSX.Element {
       <div className="modal">
         <div className="loader mb-4"></div>
         <p className="text-lg bg-transparent font-semibold">
-          Generatng Your Notes
+          Generating Your Note
         </p>
       </div>
     </>

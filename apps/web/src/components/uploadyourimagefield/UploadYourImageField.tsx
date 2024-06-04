@@ -34,7 +34,7 @@ function UploadYourImageField(props: Props): JSX.Element {
 
   return (
     <>
-      <div className="container">
+      <div className="relative">
         <FileDropZone onDrop={onDrop} files={files} />
       </div>
     </>
